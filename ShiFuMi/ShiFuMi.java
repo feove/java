@@ -7,15 +7,18 @@ public class ShiFuMi {
 
         Message.introduce();
 
-        //TODO : Round number selection
+        Message.askModeLetter();
 
-        Human player = new Human("Leo");
+        Human player = new Human("You");
+
+        Human.listenRoundConfig(player);
+        Console.hideCursor();
 
         Message.askPlayerMove();
 
         Human.listenChoice(player);
         Console.hideCursor();
-        
+
         Message.showPlayerMove(player);       
 
         Bot bot = new Bot("Bot");

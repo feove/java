@@ -5,6 +5,27 @@ import java.io.InputStreamReader;
 
 public class Human extends Player {
 
+    public int roundMod = 0;
+
+    public int getRoundMod() {
+        return roundMod;
+    }
+
+    public void setRoundMod(char letter) {
+
+        switch (letter) {
+            case 'a':
+                this.roundMod = 1;
+                break;
+            case 'b':
+                this.roundMod = 3;
+                break;
+            case 'c':
+                this.roundMod = 5;
+                break;
+        }
+    }
+   
     public Human(String name) {
         super(name);
     }
@@ -22,6 +43,21 @@ public class Human extends Player {
         }
 
     }
+
+    private char listenLetterMod() {
+        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String input = reader.readLine();
+            return input.charAt(0);
+        } catch (Exception e) {
+            
+            System.out.println("Error reading input: " + e.getMessage());
+            return '\0';
+        }
+
+    }
+
 
     @Override
     public void choiceSetting() {
@@ -51,6 +87,28 @@ public class Human extends Player {
                 break;
         }
     }
+
+    private boolean isValidRoundModLetter(char letter) {
+        return letter == 'a' || letter == 'b' || letter == 'c';
+    }
+
+    public static void listenRoundConfig(Human human) {
+        
+    
+        while (true) {
+            char letter = human.listenLetterMod();
+
+            if (human.isValidRoundModLetter(letter)) {
+                human.setRoundMod(letter);
+                Message.selectionRoundMod(human.roundMod);
+                break;
+            }
+
+            Message.invalidModLetter();
+            Message.askModeLetter();
+        }
+    }
+
 
     public static void listenChoice(Player player) {
         

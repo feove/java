@@ -7,15 +7,9 @@ public class Message {
 
         Console.clear();
         Console.hideCursor();
-        System.out.println("-===- Welcome To Shi Fu Mi  ! -===- \n");
-        Console.sleep(1000);
+        System.out.println("\n-===- Welcome To Shi Fu Mi  ! -===- \n");
+        Console.sleep(500);
         
-    }
-
-    public static void askRoundNumber() {
-
-        System.out.println("How many rounds do you want to play?");
-
     }
 
     public static void askPlayerMove() {
@@ -57,6 +51,27 @@ public class Message {
         System.out.println("\n - " + name + " chose: " + player.choice);
         Console.sleep(1000);
     }
+
+    public static void invalidModLetter() {
+        System.out.println("\n X Invalid letter. Please enter a, b, or c\n");
+    }
+
+    public static void selectionRoundMod(int roundMod) {
+
+        System.err.println("\n > You have selected: BO" + roundMod + "\n");
+    }
+
+    public static void askModeLetter() {
+
+        Console.sleep(1000);
+        System.out.println(" > Type the letter corresponding to the game mode\n");
+        Console.sleep(500);
+        System.out.println(" a) BO1\n b) BO3\n c) BO5 \n");
+        Console.showCursor();
+        System.out.print(" >  ");
+        Console.sleep(500);
+    }
+
 
     public static void GameResult(Player player1, Player player2) {
 
