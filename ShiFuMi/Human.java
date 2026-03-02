@@ -23,7 +23,6 @@ public class Human extends Player {
 
     }
 
-
     @Override
     public void choiceSetting() {
         
@@ -56,7 +55,7 @@ public class Human extends Player {
     @Override
     public void showPlayerMove() {
         System.out.println(this.name + " chose: " + this.choice);
-    }
+        }
 
 
 }

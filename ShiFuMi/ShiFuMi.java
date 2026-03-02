@@ -29,5 +29,13 @@ public class ShiFuMi {
 
         player.showPlayerMove();        
 
+        Message.loadingAnimation();
+
+        Bot bot = new Bot("Bot");
+        
+        bot.choiceSetting();
+        
+        bot.showPlayerMove();
+
     }
 }
