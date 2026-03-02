@@ -3,7 +3,7 @@ public class ShiFuMi {
 
     
     public static  boolean isGameOver(Human human, Bot bot) {
-        return human.score >= human.roundMod || bot.score >= human.roundMod;
+        return human.score >= human.roundMod/2 + 1 || bot.score >= human.roundMod/2 + 1;
     }
 
     public static void updateScores(GameIssue gameIssue,Human human, Bot bot) {
@@ -28,6 +28,8 @@ public class ShiFuMi {
         Human.listenRoundConfig(player);
         Console.hideCursor();
 
+        Bot bot = new Bot("Bot");
+
         while (true) { 
             Message.askPlayerMove();
 
@@ -36,7 +38,7 @@ public class ShiFuMi {
 
             Message.showPlayerMove(player);       
 
-            Bot bot = new Bot("Bot");
+            
             bot.choiceSetting();
             Message.showPlayerMove(bot);
 
