@@ -14,15 +14,9 @@ public class Human extends Player {
     public void setRoundMod(char letter) {
 
         switch (letter) {
-            case 'a':
-                this.roundMod = 1;
-                break;
-            case 'b':
-                this.roundMod = 3;
-                break;
-            case 'c':
-                this.roundMod = 5;
-                break;
+            case 'a' -> this.roundMod = 1;
+            case 'b' -> this.roundMod = 3;
+            case 'c' -> this.roundMod = 5;
         }
     }
    

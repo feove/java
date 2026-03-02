@@ -2,9 +2,9 @@
 
 public class Message {
     
-    
-    public static void introduce() {
+    private static final int lodingCharlength = 6;
 
+    public static void introduce() {
         Console.clear();
         Console.hideCursor();
         System.out.println("\n-===- Welcome To Shi Fu Mi  ! -===- \n");
@@ -24,22 +24,36 @@ public class Message {
 
     public static void invalidChoice() {
 
-        System.out.println("\nInvalid choice. Please enter rock, paper, or scissors.");
+        System.out.println("\nInvalid choice. Please enter rock, paper, or scissors.\n");
     }
 
     public static void loadingAnimation() {
 
-        String default_p1String = "\n  ----  Loading";
-        String default_p2String = "   ----  ";
+        Console.sleep(500);
+        Console.clear();
+
+        String default_p1String = "\n  >> Loading [";
+        String default_p2String = "]";
         String animation_dots = "";
 
-        for (int i = 0; i < 3; i++) {
-            animation_dots += ".";
-            System.out.print(default_p1String + animation_dots + default_p2String);
-            Console.sleep(500);
-        }
+        int spaceTotal = Message.lodingCharlength;
 
-        Console.sleep(1000);
+        for (int i = 0; i < spaceTotal; i++) {
+
+            for (int j = 0; j < i; j++) {        
+                animation_dots += "=";
+            }        
+            for (int e = 0; e < spaceTotal - i; e++) {
+                animation_dots += " ";
+            }
+
+            System.out.print(default_p1String + animation_dots + default_p2String);
+            animation_dots = "";
+            Console.sleep(100);
+            Console.clear();
+        }
+        Console.clear();
+        Console.sleep(500);
         System.err.println("");
 
     }
@@ -73,17 +87,60 @@ public class Message {
     }
 
 
-    public static void GameResult(Player player1, Player player2) {
+    public static void showScores(Human human, Bot bot) {
 
-        GameIssue gameIssue = GameRules.getGameIssue(player1.choice, player2.choice);
+        Console.sleep(1000);
+        System.out.println("\n -===- Scores: -===-\n");
+        System.out.println("   -" + human.getName() + ": " + human.score);
+        System.out.println("   -" + bot.getName() + ": " + bot.score+"\n");
+        Console.sleep(500);
+    }
 
+
+
+    public static void GameResult(GameIssue gameIssue, Human human, Bot bot) {
+        
+        boolean isGameOver = ShiFuMi.isGameOver(human, bot); 
+    
         switch (gameIssue) {
-            case WON -> System.out.println("\n > Congratulations! You won the game!");
-            case LOOSE -> System.out.println("\n > Sorry, you lost the game. Better luck next time!");
-            case TIE -> System.out.println("\n > It's a tie! Try again.");
+            case WON ->  {
+                
+                
+
+                if (isGameOver) {
+
+                    System.out.println("\n > Congratulations! You won the game!");
+                } else {
+                    System.out.println("\n > You won this round! Keep going!");
+                }
+                
+                
+            }
+
+            case LOOSE ->  {
+
+             
+
+                if (isGameOver) {
+                    System.out.println("\n > Oops! You lost the game. Better luck next time!\n");
+                } else {
+                    System.out.println("\n > You lost this round but it's not over yet!\n");
+                }
+
+               
+            }
+            case TIE ->  {
+                System.out.println("\n > It's a tie! Try again!\n");
+                
+                System.err.println(" > Replay the round...\n");
+            }
         }
 
         Console.showCursor();
         
+    }
+
+    public static int getLodingCharlength() {
+        return lodingCharlength;
     }
 }

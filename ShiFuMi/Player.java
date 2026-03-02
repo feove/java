@@ -6,6 +6,8 @@ public abstract class Player {
 
     protected SymbolChoice choice;
 
+    protected int score = 0;
+
     public Player(String name) {
         this.name = name;
         this.choice = null; 
@@ -15,9 +17,12 @@ public abstract class Player {
         return name;
     }
 
+    public void incrementScore() {
+        this.score++;
+    }
 
     public abstract void choiceSetting();
 
- 
+    
 
 }

@@ -2,6 +2,20 @@
 public class ShiFuMi {
 
     
+    public static  boolean isGameOver(Human human, Bot bot) {
+        return human.score >= human.roundMod || bot.score >= human.roundMod;
+    }
+
+    public static void updateScores(GameIssue gameIssue,Human human, Bot bot) {
+        
+        
+        switch (gameIssue) {
+            case WON ->  human.incrementScore();
+            case LOOSE ->  bot.incrementScore();
+            case TIE ->  {}
+        }
+
+    }
 
     public static void main(String[] args) {
 
@@ -14,21 +28,33 @@ public class ShiFuMi {
         Human.listenRoundConfig(player);
         Console.hideCursor();
 
-        Message.askPlayerMove();
+        while (true) { 
+            Message.askPlayerMove();
 
-        Human.listenChoice(player);
-        Console.hideCursor();
+            Human.listenChoice(player);
+            Console.hideCursor();
 
-        Message.showPlayerMove(player);       
+            Message.showPlayerMove(player);       
 
-        Bot bot = new Bot("Bot");
-        bot.choiceSetting();
-        Message.showPlayerMove(bot);
+            Bot bot = new Bot("Bot");
+            bot.choiceSetting();
+            Message.showPlayerMove(bot);
 
-        Message.loadingAnimation();
-        
+            Message.loadingAnimation();
+            
+            GameIssue gameIssue = GameRules.getGameIssue(player.choice, bot.choice);
 
-        Message.GameResult(player, bot);      
+            updateScores(gameIssue, player, bot);
+
+            Message.GameResult(gameIssue, player, bot);   
+            Message.showScores(player, bot);
+            
+
+            if (isGameOver(player, bot)) {
+                break;
+            }      
+        }
+           
 
     }
 }
