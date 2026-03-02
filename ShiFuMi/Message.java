@@ -2,27 +2,13 @@
 
 public class Message {
     
-    public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }   
-
-    public static void sleep(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds); 
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        
-    }
-
+    
     public static void introduce() {
 
-        
-        clearConsole();
-
-        System.out.println("Welcome to the game of Rock, Paper, Scissors!");
-        sleep(1000);
+        Console.clear();
+        Console.hideCursor();
+        System.out.println("-===- Welcome To Shi Fu Mi  ! -===- \n");
+        Console.sleep(1000);
         
     }
 
@@ -34,19 +20,55 @@ public class Message {
 
     public static void askPlayerMove() {
 
-        System.out.println("Please enter your move (rock, paper, or scissors):");
+       
+        System.out.println("-> Please enter your move (rock or R, paper or P, or scissors or S):");
+        Console.sleep(1000);
+        System.err.print("\n > your choice : ");
+        Console.showCursor();
 
     }
 
     public static void invalidChoice() {
 
-        System.out.println("Invalid choice. Please enter rock, paper, or scissors.");
+        System.out.println("\nInvalid choice. Please enter rock, paper, or scissors.");
     }
 
     public static void loadingAnimation() {
 
-        
-        System.out.println("Loading...");
+        String default_p1String = "\n  ----  Loading";
+        String default_p2String = "   ----  ";
+        String animation_dots = "";
 
+        for (int i = 0; i < 3; i++) {
+            animation_dots += ".";
+            System.out.print(default_p1String + animation_dots + default_p2String);
+            Console.sleep(500);
+        }
+
+        Console.sleep(1000);
+        System.err.println("");
+
+    }
+
+       public static void showPlayerMove(Player player) {
+        String name = player.getName();
+
+        Console.sleep(500);
+        System.out.println("\n - " + name + " chose: " + player.choice);
+        Console.sleep(1000);
+    }
+
+    public static void GameResult(Player player1, Player player2) {
+
+        GameIssue gameIssue = GameRules.getGameIssue(player1.choice, player2.choice);
+
+        switch (gameIssue) {
+            case WON -> System.out.println("\n > Congratulations! You won the game!");
+            case LOOSE -> System.out.println("\n > Sorry, you lost the game. Better luck next time!");
+            case TIE -> System.out.println("\n > It's a tie! Try again.");
+        }
+
+        Console.showCursor();
+        
     }
 }

@@ -1,19 +1,7 @@
 
 public class ShiFuMi {
 
-    public static  void setPlayerChoice(Player player) {
-        
-        while (true) {
-            player.choiceSetting();
-
-            if (player.choice != null) {
-                break;
-            }
-
-            Message.invalidChoice();
-        }
-
-    }
+    
 
     public static void main(String[] args) {
 
@@ -25,17 +13,19 @@ public class ShiFuMi {
 
         Message.askPlayerMove();
 
-        setPlayerChoice(player);
-
-        player.showPlayerMove();        
-
-        Message.loadingAnimation();
+        Human.listenChoice(player);
+        Console.hideCursor();
+        
+        Message.showPlayerMove(player);       
 
         Bot bot = new Bot("Bot");
-        
         bot.choiceSetting();
+        Message.showPlayerMove(bot);
+
+        Message.loadingAnimation();
         
-        bot.showPlayerMove();
+
+        Message.GameResult(player, bot);      
 
     }
 }

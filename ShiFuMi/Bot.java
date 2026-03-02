@@ -6,7 +6,7 @@ public class Bot extends Player {
 
     @Override
     public void choiceSetting() {
-        int randomChoice = (int) (Math.random() * 3); 
+        int randomChoice = (int)(Math.random() * 3); 
 
         switch (randomChoice) {
             case 0 -> this.choice = SymbolChoice.ROCK;
@@ -15,9 +15,5 @@ public class Bot extends Player {
         }
     }
 
-    @Override
-    public void showPlayerMove() {
-        System.out.println(this.name + " chose: " + this.choice);
-    }
-    
+   
 }

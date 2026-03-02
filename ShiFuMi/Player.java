@@ -18,6 +18,6 @@ public abstract class Player {
 
     public abstract void choiceSetting();
 
-    public abstract  void showPlayerMove();
+ 
 
 }

@@ -52,10 +52,20 @@ public class Human extends Player {
         }
     }
 
-    @Override
-    public void showPlayerMove() {
-        System.out.println(this.name + " chose: " + this.choice);
-        }
+    public static void listenChoice(Player player) {
+        
+        while (true) {
+            player.choiceSetting();
 
+            if (player.choice != null) {
+                break;
+            }
+
+            Message.invalidChoice();
+            Message.askPlayerMove();
+        }
+    }
+
+    
 
 }
