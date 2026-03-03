@@ -43,7 +43,7 @@ public class Message {
             for (int j = 0; j < i; j++) {        
                 animation_dots += "=";
             }        
-            for (int e = 0; e < spaceTotal - i; e++) {
+            for (int e = 0; e < spaceTotal - i - 1; e++) {
                 animation_dots += " ";
             }
 
