@@ -17,4 +17,19 @@ public class Grid {
     public int getSize() {
         return this.size;
     }
+
+    public static void showGrid(Grid grid, Selector selector) {
+        // Unicodes ╩ ╦ ║ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
+
+        int size = grid.getSize();
+
+        for (int i = 0; i < size; i++) {
+            System.out.print("[");
+            for (int j = 0; j < size; j++) {
+                System.out.print(" " + grid.Field[i][j]);
+            }
+
+            System.out.println(" ]");
+        }
+    }
 }
