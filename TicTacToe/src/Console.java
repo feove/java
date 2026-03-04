@@ -9,9 +9,9 @@ public class Console {
         System.out.flush();
     }
 
-    public static void sleep(long milliseconds) {
+    public static void sleep(int seconds) {
         try {
-            Thread.sleep(milliseconds);
+            Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

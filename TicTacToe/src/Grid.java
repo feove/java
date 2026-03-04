@@ -79,12 +79,13 @@ public class Grid {
     public static void showGrid(Grid grid) {
         // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
 
+        String blank_gasp = "  ";
         int size = grid.getSize();
 
         Selector sel = grid.getSelector();
 
         String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦');
-        Console.print(l_top);
+        Console.print(blank_gasp + l_top);
 
         for (int i = 0; i < size; i++) {
             String line = buildCustomLine(grid, '║', '║', ' ', '║');
@@ -93,15 +94,15 @@ public class Grid {
                 line = Selector.addSelector(grid, line);
             }
 
-            Console.print(line);
+            Console.print(blank_gasp + line);
             if (i + 1 == size) break;
 
             String border = buildCustomLine(grid, '╠', '╣', '═', '╬');
-            Console.print(border);
+            Console.print(blank_gasp + border);
         }
 
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩');
-        Console.print(l_bottom);
+        Console.print(blank_gasp + l_bottom);
 
         //  System.out.println("Expected :");
 
