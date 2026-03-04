@@ -1,5 +1,7 @@
-import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.NativeHookException;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
 
 public class TicTacToe {
 
@@ -7,26 +9,28 @@ public class TicTacToe {
         Message.intro();
         Grid grid = new Grid(3, 3, 3);
 
-        try {
-            GlobalScreen.registerNativeHook();
-        } catch (NativeHookException ex) {
-            System.err.println(
-                "There was a problem registering the native hook."
-            );
-            System.err.println(ex.getMessage());
-            System.exit(1);
-        }
+        try (
+            Terminal terminal = new DefaultTerminalFactory().createTerminal()
+        ) {
+            terminal.enterPrivateMode();
+            terminal.setCursorVisible(false);
 
-        GlobalScreen.addNativeKeyListener(new Input());
+            while (true) {
+                Console.clear();
+                Grid.showGrid(grid);
 
-        Grid.showGrid(grid);
+                KeyStroke keyStroke = terminal.readInput();
 
-        while (true) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (keyStroke.getKeyType() == KeyType.ArrowUp) {
+                    grid.getSelector().TopShift();
+                } else if (keyStroke.getKeyType() == KeyType.Escape) {
+                    break;
+                }
             }
+
+            terminal.exitPrivateMode();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

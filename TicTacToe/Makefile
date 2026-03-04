@@ -1,16 +1,16 @@
 TARGET = tictactoe
 SRC_DIR = src
 LIB_DIR = lib
-JAR_FILE = $(LIB_DIR)/jnativehook-2.2.2.jar
+LANTERNA_JAR = $(LIB_DIR)/lanterna-3.1.2.jar
 SOURCES = $(wildcard $(SRC_DIR)/*.java)
 
-all: compile run
+all: compile
 
 compile:
-	javac -cp "$(JAR_FILE)" -sourcepath $(SRC_DIR) $(SOURCES)
+	javac -cp "$(LANTERNA_JAR)" -sourcepath $(SRC_DIR) $(SOURCES)
 
-run: compile
-	java -cp "$(SRC_DIR):$(JAR_FILE)" TicTacToe
+run:
+	java -cp "$(SRC_DIR):$(LANTERNA_JAR)" TicTacToe
 
 clean:
 	rm -f $(SRC_DIR)/*.class
