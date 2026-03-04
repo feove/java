@@ -1,6 +1,6 @@
 public class Grid {
 
-    public int[][] Field = new int[3][3];
+    public Cell[][] Field = new Cell[3][3];
 
     private int size;
 
@@ -12,7 +12,7 @@ public class Grid {
     public Grid(int _size, int _cell_width, int _cell_height) {
         for (int i = 0; i < _size; i++) {
             for (int j = 0; j < _size; j++) {
-                Field[i][j] = 0;
+                Field[i][j] = new Cell(3); // Void
             }
         }
         this.size = _size;
@@ -63,6 +63,10 @@ public class Grid {
         }
 
         return l.toString();
+    }
+
+    public static void setSymbol(Grid grid, Symbol s, int x, int y) {
+        grid.Field[x][y] = new Cell(s);
     }
 
     public static void showGrid(Grid grid) {
