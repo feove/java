@@ -4,5 +4,6 @@ public class Message {
         Console.clear();
         System.out.println("\n -==- Welcome to Tic Tac Toe! -==-\n");
         // Console.sleep(2);
+        Console.clear();
     }
 }

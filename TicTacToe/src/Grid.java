@@ -50,7 +50,8 @@ public class Grid {
         char start,
         char end,
         char border,
-        char separator
+        char separator,
+        int line
     ) {
         StringBuilder l = new StringBuilder(start);
 
@@ -60,8 +61,24 @@ public class Grid {
 
         l.append(start);
 
+        // System.out.println("DEBUG");
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < c_width; j++) {
+                if (j == (int) (c_width / 2) && start == end) {
+                    Symbol currentSymbol = grid.Field[line][i].getSymbol();
+
+                    if (currentSymbol == Symbol.CIRCLE) {
+                        l.append('O');
+                        continue;
+                    }
+
+                    if (currentSymbol == Symbol.CROSS) {
+                        l.append('X');
+                        continue;
+                    }
+                }
+
                 l.append(border);
             }
 
@@ -84,11 +101,11 @@ public class Grid {
 
         Selector sel = grid.getSelector();
 
-        String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦');
+        String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦', 0);
         Console.print(blank_gasp + l_top);
 
         for (int i = 0; i < size; i++) {
-            String line = buildCustomLine(grid, '║', '║', ' ', '║');
+            String line = buildCustomLine(grid, '║', '║', ' ', '║', i);
 
             if (i == sel.getY()) {
                 line = Selector.addSelector(grid, line);
@@ -97,15 +114,15 @@ public class Grid {
             Console.print(blank_gasp + line);
             if (i + 1 == size) break;
 
-            String border = buildCustomLine(grid, '╠', '╣', '═', '╬');
+            String border = buildCustomLine(grid, '╠', '╣', '═', '╬', i);
             Console.print(blank_gasp + border);
         }
 
-        String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩');
+        String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩', 2);
         Console.print(blank_gasp + l_bottom);
 
         //  System.out.println("Expected :");
-
+        /*
         Console.print("╔═══╦═══╦═══╗");
         Console.print("║ O ║ X ║ X ║");
         Console.print("╠═══╬═══╬═══╣");
@@ -113,5 +130,6 @@ public class Grid {
         Console.print("╠═══╬═══╬═══╣");
         Console.print("║ X ║   ║   ║");
         Console.print("╚═══╩═══╩═══╝");
+        */
     }
 }

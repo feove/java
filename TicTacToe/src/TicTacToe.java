@@ -2,6 +2,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import java.awt.event.KeyEvent;
 
 public class TicTacToe {
 
@@ -19,31 +20,38 @@ public class TicTacToe {
                 Console.clear();
                 Grid.showGrid(grid);
 
+                int x = grid.getSelector().getX();
+                int y = grid.getSelector().getY();
+
                 KeyStroke keyStroke = terminal.readInput();
 
                 switch (keyStroke.getKeyType()) {
-                    case KeyType.ArrowUp -> {
+                    case ArrowUp:
                         grid.getSelector().TopShift();
-                    }
-                    case KeyType.ArrowDown -> {
+                        break;
+                    case ArrowDown:
                         grid.getSelector().BottomShift(grid);
-                    }
-                    case KeyType.ArrowLeft -> {
+                        break;
+                    case ArrowLeft:
                         grid.getSelector().leftShift();
-                    }
-                    case KeyType.ArrowRight -> {
+                        break;
+                    case ArrowRight:
                         grid.getSelector().rightShift();
-                    }
-                    case KeyType.Escape -> {
-                        Console.clear();
+                        break;
+                    case Escape:
                         terminal.exitPrivateMode();
                         return;
-                    }
-                    default -> {
-                        if (keyStroke.getKeyType() == KeyType.Character) {
-                            char c = keyStroke.getCharacter();
+                    case Character:
+                        char c = keyStroke.getCharacter();
+                        if (c == 'o' || c == 'O') {
+                            Grid.setSymbol(grid, Symbol.CIRCLE, y, x);
+                        } else if (c == 'x' || c == 'X') {
+                            Grid.setSymbol(grid, Symbol.CROSS, y, x);
                         }
-                    }
+                        break;
+                    default:
+                        // Do nothing for other keys
+                        break;
                 }
             }
         } catch (Exception e) {
