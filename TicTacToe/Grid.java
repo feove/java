@@ -19,7 +19,7 @@ public class Grid {
         this.cell_width = _cell_width;
         this.cell_height = _cell_height;
 
-        this.s = new Selector(1, 1, _size);
+        this.s = new Selector(2, 2, _size);
     }
 
     public int getCellWidth() {
