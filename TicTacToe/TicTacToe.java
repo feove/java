@@ -6,6 +6,6 @@ public class TicTacToe {
         Grid grid = new Grid();
         Selector selector = new Selector(0, 0);
 
-        Message.showGrid(grid);
+        Grid.showGrid(grid, selector);
     }
 }
