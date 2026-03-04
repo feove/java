@@ -4,59 +4,101 @@ public class Grid {
 
     private int size;
 
-    public Grid() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+    private int cell_width;
+    private int cell_height;
+
+    private Selector s;
+
+    public Grid(int _size, int _cell_width, int _cell_height) {
+        for (int i = 0; i < _size; i++) {
+            for (int j = 0; j < _size; j++) {
                 Field[i][j] = 0;
             }
         }
-        this.size = 3;
+        this.size = _size;
+        this.cell_width = _cell_width;
+        this.cell_height = _cell_height;
+        this.s = new Selector(1, 2);
+    }
+
+    public int getCellWidth() {
+        return this.cell_width;
+    }
+
+    public int getCellHeight() {
+        return this.cell_height;
+    }
+
+    public Selector getSelector() {
+        return this.s;
     }
 
     public int getSize() {
         return this.size;
     }
 
-    public static void showGrid(Grid grid, Selector selector) {
-        // Unicodes ╩ ╦ ║ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
+    private static String buildCustomLine(
+        Grid grid,
+        char start,
+        char end,
+        char border,
+        char separator
+    ) {
+        StringBuilder l = new StringBuilder(start);
+
+        int c_width = grid.getCellWidth();
 
         int size = grid.getSize();
 
-        System.out.println(
-            "\u2554\u2550\u2550\u2550\u2566\u2550\u2550\u2550\u2566\u2550\u2550\u2550\u2557"
-        );
-        System.out.println("\u2551 O \u2551 X \u2551 X \u2551");
-        System.out.println(
-            "\u2560\u2550\u2550\u2550\u256C\u2550\u2550\u2550\u256C\u2550\u2550\u2550\u2563"
-        );
-        System.out.println("\u2551   \u2551 O \u2551   \u2551");
-        System.out.println(
-            "\u2560\u2550\u2550\u2550\u256C\u2550\u2550\u2550\u256C\u2550\u2550\u2550\u2563"
-        );
-        System.out.println("\u2551 X \u2551   \u2551   \u2551");
-        System.out.println(
-            "\u255A\u2550\u2550\u2550\u2569\u2550\u2550\u2550\u2569\u2550\u2550\u2550\u255D"
-        );
-
-        /*
-        System.out.println("╔═══╦═══╦═══╗");
-        System.out.println("║ O ║ X ║ X ║");
-        System.out.println("╠═══╬═══╬═══╣");
-        System.out.println("║   ║ O ║   ║");
-        System.out.println("╠═══╬═══╬═══╣");
-        System.out.println("║ X ║   ║   ║");
-        System.out.println("╚═══╩═══╩═══╝");
+        l.append(start);
 
         for (int i = 0; i < size; i++) {
-
-            char symbol = '╚';
-            System.out.print("[");
-            for (int j = 0; j < size; j++) {
-                System.out.print(" " + grid.Field[i][j]);
+            for (int j = 0; j < c_width; j++) {
+                l.append(border);
             }
 
-            System.out.println(" ]");
+            char sep = (i + 1 != size) ? separator : end;
+            l.append(sep);
         }
-         */
+
+        return l.toString();
+    }
+
+    public static void showGrid(Grid grid) {
+        // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
+
+        int size = grid.getSize();
+
+        Selector sel = grid.getSelector();
+
+        String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦');
+        Console.print(l_top);
+
+        for (int i = 0; i < size; i++) {
+            String line = buildCustomLine(grid, '║', '║', ' ', '║');
+
+            if (i == sel.getY()) {
+                line = Selector.addSelector(grid, line);
+            }
+
+            Console.print(line);
+            if (i + 1 == size) break;
+
+            String border = buildCustomLine(grid, '╠', '╣', '═', '╬');
+            Console.print(border);
+        }
+
+        String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩');
+        Console.print(l_bottom);
+
+        System.out.println("Expected :");
+
+        Console.print("╔═══╦═══╦═══╗");
+        Console.print("║ O ║ X ║ X ║");
+        Console.print("╠═══╬═══╬═══╣");
+        Console.print("║   ║ O ║   ║");
+        Console.print("╠═══╬═══╬═══╣");
+        Console.print("║ X ║   ║   ║");
+        Console.print("╚═══╩═══╩═══╝");
     }
 }
