@@ -3,9 +3,12 @@ public class Selector {
     private int x;
     private int y;
 
-    public Selector(int _x, int _y) {
+    private int limit;
+
+    public Selector(int _x, int _y, int _limit) {
         this.x = _x;
         this.y = _y;
+        this.limit = _limit;
     }
 
     public int getX() {
@@ -16,6 +19,30 @@ public class Selector {
         return this.y;
     }
 
+    public void leftShift() {
+        if (this.x > 0) {
+            this.x--;
+        }
+    }
+
+    public void rightShift() {
+        if (this.x + 1 < this.limit) {
+            this.x++;
+        }
+    }
+
+    public void TopShift() {
+        if (this.y > 0) {
+            this.y--;
+        }
+    }
+
+    public void BottomShift(Grid grid) {
+        if (this.y + 1 < this.limit) {
+            this.y++;
+        }
+    }
+
     public static String addSelector(Grid grid, String line) {
         StringBuilder new_selector = new StringBuilder(line);
 
@@ -24,21 +51,17 @@ public class Selector {
         int x_selector = grid.getSelector().getX();
 
         int c_width = grid.getCellWidth();
-        int x_offset = c_width / 2 + 1;
+        int x_offset = (int) (c_width / 2) + 1;
 
-        int x = 0;
-
-        for (int i = x_offset; i < size * c_width; i += c_width) {
-            if (x == x_selector) {
-                new_selector.setCharAt(x * c_width - 2, '>');
-                new_selector.setCharAt(x * c_width, '<');
+        for (int i = 0; i < size; i++) {
+            if (i == x_selector) {
+                //new_selector.setCharAt(x * c_width - 1, '>');
+                new_selector.setCharAt(x_offset + i * (c_width + 1), 'X');
             }
-
-            x++;
         }
 
-        String result = new String(new_selector.toString());
+        //String result = new String(new_selector.toString());
 
-        return result;
+        return new_selector.toString();
     }
 }
