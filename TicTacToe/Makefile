@@ -9,8 +9,9 @@ all: compile
 compile:
 	javac -cp "$(LANTERNA_JAR)" -sourcepath $(SRC_DIR) $(SOURCES)
 
-run:
+run: compile
 	java -cp "$(SRC_DIR):$(LANTERNA_JAR)" TicTacToe
+	make clean
 
 clean:
 	rm -f $(SRC_DIR)/*.class
