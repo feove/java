@@ -21,14 +21,31 @@ public class TicTacToe {
 
                 KeyStroke keyStroke = terminal.readInput();
 
-                if (keyStroke.getKeyType() == KeyType.ArrowUp) {
-                    grid.getSelector().TopShift();
-                } else if (keyStroke.getKeyType() == KeyType.Escape) {
-                    break;
+                switch (keyStroke.getKeyType()) {
+                    case KeyType.ArrowUp -> {
+                        grid.getSelector().TopShift();
+                    }
+                    case KeyType.ArrowDown -> {
+                        grid.getSelector().BottomShift(grid);
+                    }
+                    case KeyType.ArrowLeft -> {
+                        grid.getSelector().leftShift();
+                    }
+                    case KeyType.ArrowRight -> {
+                        grid.getSelector().rightShift();
+                    }
+                    case KeyType.Escape -> {
+                        Console.clear();
+                        terminal.exitPrivateMode();
+                        return;
+                    }
+                    default -> {
+                        if (keyStroke.getKeyType() == KeyType.Character) {
+                            char c = keyStroke.getCharacter();
+                        }
+                    }
                 }
             }
-
-            terminal.exitPrivateMode();
         } catch (Exception e) {
             e.printStackTrace();
         }
