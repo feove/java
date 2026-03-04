@@ -55,8 +55,8 @@ public class Selector {
 
         for (int i = 0; i < size; i++) {
             if (i == x_selector) {
-                //new_selector.setCharAt(x * c_width - 1, '>');
-                new_selector.setCharAt(x_offset + i * (c_width + 1), 'X');
+                new_selector.setCharAt(x_offset + i * (c_width), '>');
+                new_selector.setCharAt(x_offset + i * (c_width + 2), '<');
             }
         }
 
