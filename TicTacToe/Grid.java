@@ -1,6 +1,6 @@
 public class Grid {
 
-    public Cell[][] Field = new Cell[3][3];
+    public Cell[][] Field;
 
     private int size;
 
@@ -10,16 +10,23 @@ public class Grid {
     private Selector s;
 
     public Grid(int _size, int _cell_width, int _cell_height) {
-        for (int i = 0; i < _size; i++) {
-            for (int j = 0; j < _size; j++) {
-                Field[i][j] = new Cell(3); // Void
-            }
-        }
+        initField(_size);
+
         this.size = _size;
         this.cell_width = _cell_width;
         this.cell_height = _cell_height;
 
         this.s = new Selector(2, 2, _size);
+    }
+
+    private void initField(int size) {
+        Field = new Cell[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Field[i][j] = new Cell(3); // Void
+            }
+        }
     }
 
     public int getCellWidth() {
@@ -96,7 +103,7 @@ public class Grid {
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩');
         Console.print(l_bottom);
 
-        System.out.println("Expected :");
+        //  System.out.println("Expected :");
 
         Console.print("╔═══╦═══╦═══╗");
         Console.print("║ O ║ X ║ X ║");
