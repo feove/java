@@ -12,6 +12,8 @@ public class TicTacToe {
         Message.intro();
         Grid grid = new Grid(3, 3, 3);
 
+        GameRules gameRules;
+
         try (
             Terminal terminal = new DefaultTerminalFactory().createTerminal()
         ) {

@@ -4,6 +4,7 @@ public class Scene {
         Console.clear();
         switch (TicTacToe.status) {
             case GAME:
+                GameRules.gameManager(grid);
                 Grid.showGrid(grid);
                 break;
             case LOSE:

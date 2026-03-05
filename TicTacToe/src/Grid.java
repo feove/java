@@ -104,6 +104,8 @@ public class Grid {
         String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦', 0);
         Console.print(blank_gasp + l_top);
 
+        //String
+
         for (int i = 0; i < size; i++) {
             String line = buildCustomLine(grid, '║', '║', ' ', '║', i);
 

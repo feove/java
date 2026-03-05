@@ -47,8 +47,12 @@ public class Input {
             TicTacToe.status != Status.GAME || GameRules.HumanCanPlay == false
         ) return false;
 
-        GameRules.HumanCanPlay = false;
-        return true;
+        if (c == 'v') {
+            GameRules.HumanCanPlay = false;
+            return true;
+        }
+
+        return false;
     }
 
     private static void characterInput(char c, Grid grid) {

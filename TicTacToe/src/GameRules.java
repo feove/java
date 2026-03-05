@@ -3,9 +3,12 @@ public class GameRules {
     public static GameRules gameRules;
 
     private Person winner;
+    private boolean tie;
 
     public final Person cross;
     public final Person circle;
+
+    public static Person currentTurn;
 
     public static boolean HumanCanPlay = true;
     public static boolean HumanPutSymbol = false;
@@ -14,6 +17,44 @@ public class GameRules {
         this.winner = Person.NONE;
         this.cross = _cross;
         this.circle = _circle;
+        this.tie = true;
+    }
+
+    public static void gameManager(Grid grid) {
+        if (gameRules.HumanCanPlay == false) {
+            Bot.play(grid);
+            HumanCanPlay = true;
+        }
+
+        if (gameRules.isOver(grid)) {
+            if (gameRules.tie) {
+                TicTacToe.status = Status.TIE;
+                return;
+            }
+
+            if (gameRules.winner == Person.BOT) {
+                TicTacToe.status = Status.WIN;
+                return;
+            }
+
+            TicTacToe.status = Status.LOSE;
+        }
+    }
+
+    public static Symbol whatSelected(Person p) {
+        if (p == gameRules.cross) {
+            return Symbol.CROSS;
+        }
+
+        return Symbol.CIRCLE;
+    }
+
+    public static Person whoSelected(Symbol s) {
+        if (s == Symbol.CROSS) {
+            return gameRules.cross;
+        }
+
+        return gameRules.circle;
     }
 
     public Person getWinner() {
@@ -31,6 +72,10 @@ public class GameRules {
             if (grid.Field[i][col].getSymbol() != s) {
                 return false;
             }
+
+            if (grid.Field[i][col].getSymbol() == Symbol.VOID) {
+                gameRules.tie = false;
+            }
         }
 
         return true;
@@ -42,6 +87,10 @@ public class GameRules {
         for (int j = 0; j < size; j++) {
             if (grid.Field[line][j].getSymbol() != s) {
                 return false;
+            }
+
+            if (grid.Field[line][j].getSymbol() == Symbol.VOID) {
+                gameRules.tie = false;
             }
         }
 
@@ -128,12 +177,15 @@ public class GameRules {
 
     //Set Winner also
     public boolean isOver(Grid grid) {
+        //Assume it can change
+        this.tie = false;
+
         if (columChecker(grid)) return true;
 
         if (lineChecker(grid)) return true;
 
         if (diagonaleChecker(grid)) return true;
 
-        return false;
+        return this.tie;
     }
 }
