@@ -1,5 +1,5 @@
 public enum Person {
     BOT,
-    PLAYER,
+    HUMAN,
     NONE,
 }

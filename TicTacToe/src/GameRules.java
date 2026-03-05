@@ -1,9 +1,14 @@
 public class GameRules {
 
+    public static GameRules gameRules;
+
     private Person winner;
 
-    private final Person cross;
-    private final Person circle;
+    public final Person cross;
+    public final Person circle;
+
+    public static boolean HumanCanPlay = true;
+    public static boolean HumanPutSymbol = false;
 
     public GameRules(Person _cross, Person _circle) {
         this.winner = Person.NONE;
@@ -123,10 +128,6 @@ public class GameRules {
 
     //Set Winner also
     public boolean isOver(Grid grid) {
-        boolean res;
-        boolean cross;
-        boolean circle;
-
         if (columChecker(grid)) return true;
 
         if (lineChecker(grid)) return true;

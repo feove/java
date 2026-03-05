@@ -1,6 +1,7 @@
 public class Scene {
 
     public static void gamePlay(Grid grid) {
+        Console.clear();
         switch (TicTacToe.status) {
             case GAME:
                 Grid.showGrid(grid);
@@ -12,13 +13,10 @@ public class Scene {
             case WIN:
                 break;
             case SYMBOL_SELECTION:
+                SymbolSelection.drawSymbolSelection();
                 break;
             default:
                 break;
         }
-
-        Console.clear();
-
-        Grid.showGrid(grid);
     }
 }
