@@ -12,5 +12,4 @@ public enum Symbol {
     public int getValue() {
         return this.value;
     }
-
 }

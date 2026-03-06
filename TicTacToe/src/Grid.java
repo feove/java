@@ -89,6 +89,17 @@ public class Grid {
         return l.toString();
     }
 
+    public static boolean IsSamePosition(int x, int y) {
+        return GameRules.save_position_x == x && GameRules.save_position_y == y;
+    }
+
+    public static void savePosition(Grid grid, int x, int y) {
+        if (GameRules.currentTurn != Person.HUMAN) return;
+
+        GameRules.save_position_x = x;
+        GameRules.save_position_y = y;
+    }
+
     public static void setSymbol(Grid grid, Symbol s, int x, int y) {
         grid.Field[y][x] = new Cell(s);
     }

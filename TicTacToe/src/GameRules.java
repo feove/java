@@ -15,7 +15,8 @@ public class GameRules {
 
     public static boolean HumanPutSymbol = false;
 
-    public static AbstractMap.SimpleEntry<Integer, Integer> save_symbol;
+    public static int save_position_x;
+    public static int save_position_y;
 
     public GameRules(Person _cross, Person _circle) {
         this.winner = Person.NONE;
@@ -55,7 +56,7 @@ public class GameRules {
         if (CanBotPlay()) {
             Scene.drawGame(grid, false);
 
-            Console.sleep(2);
+            Console.sleep(0); // Was 2
             Console.clear();
             Bot.play(grid);
 
@@ -110,22 +111,6 @@ public class GameRules {
         return true;
     }
 
-    private static boolean checkLine(Grid grid, Symbol s, int line) {
-        int size = grid.getSize();
-
-        for (int j = 0; j < size; j++) {
-            if (grid.Field[line][j].getSymbol() != s) {
-                return false;
-            }
-
-            if (grid.Field[j][line].getSymbol() == Symbol.VOID) {
-                gameRules.tie = false;
-            }
-        }
-
-        return true;
-    }
-
     private boolean checkLeftDiagonal(Grid grid, Symbol s) {
         boolean res = grid.Field[0][0].getSymbol() == s;
         res = res && grid.Field[1][1].getSymbol() == s;
@@ -161,18 +146,36 @@ public class GameRules {
         return false;
     }
 
+    private static boolean checkLine(Grid grid, Symbol s, int line) {
+        int size = grid.getSize();
+
+        for (int j = 0; j < size; j++) {
+            if (grid.Field[j][line].getSymbol() != s) {
+                return false;
+            }
+
+            if (grid.Field[j][line].getSymbol() == Symbol.VOID) {
+                gameRules.tie = false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean lineChecker(Grid grid) {
-        if (is_void_at(grid, 0, 1) == false) {
-            if (checkLine(grid, Symbol.CIRCLE, 1)) {
+        int size = grid.getSize();
+        for (int i = 0; i > size; i++) {
+            if (checkLine(grid, Symbol.CIRCLE, i)) {
                 this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
-            if (checkLine(grid, Symbol.CROSS, 1)) {
+            if (checkLine(grid, Symbol.CROSS, i)) {
                 this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -207,13 +210,15 @@ public class GameRules {
     //Set Winner also
     public boolean isOver(Grid grid) {
         //Assume it can change
-        this.tie = false;
+        this.tie = false; //true
 
         if (columChecker(grid)) return true;
 
         if (lineChecker(grid)) return true;
 
         if (diagonaleChecker(grid)) return true;
+
+        // System.out.println("this.tie=" + this.tie);
 
         return this.tie;
     }

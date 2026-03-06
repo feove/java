@@ -17,11 +17,13 @@ public class Input {
         if (c == 'o' || c == 'O') {
             if (GameRules.gameRules.circle == Person.HUMAN) {
                 Grid.setSymbol(grid, Symbol.CIRCLE, x, y);
+                Grid.savePosition(grid, x, y);
                 GameRules.HumanPutSymbol = true;
             }
         } else if (c == 'x' || c == 'X') {
             if (GameRules.gameRules.cross == Person.HUMAN) {
                 Grid.setSymbol(grid, Symbol.CROSS, x, y);
+                Grid.savePosition(grid, x, y);
                 GameRules.HumanPutSymbol = true;
             }
         }
@@ -69,7 +71,8 @@ public class Input {
         Selector s = grid.getSelector();
 
         if (
-            grid.Field[s.getY()][s.getX()].getSymbol() == Symbol.VOID
+            grid.Field[s.getY()][s.getX()].getSymbol() == Symbol.VOID ||
+            Grid.IsSamePosition(s.getX(), s.getY()) == false
         ) return false;
 
         grid.Field[s.getY()][s.getX()] = new Cell(Symbol.VOID);
