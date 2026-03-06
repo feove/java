@@ -122,26 +122,21 @@ public class Grid {
         String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦', 0);
         Console.print(blank_gasp + l_top);
 
-        int arrow_line = 0;
-
-        for (int i = 0; i < size; i++) {
-            String line = buildCustomLine(grid, '║', '║', ' ', '║', i);
-
-            if (i == sel.getY()) {
-                line = Selector.addSelector(grid, line);
-            }
-
+        for (int i = 0; i < size * 2 - 1; i++) {
             String arrows = buildArrows(i);
 
-            if (arrows != "") arrow_line++;
+            if (i % 2 == 1) {
+                String border = buildCustomLine(grid, '╠', '╣', '═', '╬', -1);
+                Console.print(blank_gasp + border + arrows);
+                continue;
+            }
 
+            String line = buildCustomLine(grid, '║', '║', ' ', '║', i / 2);
+
+            if (i / 2 == sel.getY()) {
+                line = Selector.addSelector(grid, line);
+            }
             Console.print(blank_gasp + line + arrows);
-            if (i + 1 == size) break;
-
-            if (i < arrow_line) arrows = buildArrows(i + 1);
-
-            String border = buildCustomLine(grid, '╠', '╣', '═', '╬', i);
-            Console.print(blank_gasp + border + arrows);
         }
 
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩', 2);

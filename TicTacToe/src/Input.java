@@ -66,8 +66,11 @@ public class Input {
             GameRules.CanHumanPlay() == false ||
             GameRules.HumanPutSymbol == false
         ) return false;
-
         Selector s = grid.getSelector();
+
+        if (
+            grid.Field[s.getY()][s.getX()].getSymbol() == Symbol.VOID
+        ) return false;
 
         grid.Field[s.getY()][s.getX()] = new Cell(Symbol.VOID);
         GameRules.HumanPutSymbol = false;
