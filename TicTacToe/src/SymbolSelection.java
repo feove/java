@@ -11,7 +11,5 @@ public class SymbolSelection {
         Console.print("    ║ X ║     ║ O ║ ");
         Console.print("    ╚═══╝     ╚═══╝ ");
         Console.print("     [1]       [2]\n");
-
-        Console.print("\n > [ESCAP] to quit");
     }
 }

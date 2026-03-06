@@ -48,12 +48,12 @@ public class GameRules {
         }
 
         if (CanBotPlay()) {
-            Grid.showGrid(grid);
-            Message.ShowTurn(GameRules.currentTurn);
+            Scene.drawGame(grid, false);
 
-            Console.sleep(3);
+            Console.sleep(2);
             Console.clear();
             Bot.play(grid);
+
             setTurn(Person.HUMAN);
             GameRules.HumanPutSymbol = false;
         }

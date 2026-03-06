@@ -97,17 +97,10 @@ public class Grid {
         return grid.Field[y][x].getSymbol() == Symbol.VOID;
     }
 
-    // public static deletion()
-
     public static void showGrid(Grid grid) {
         // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
 
-        System.out.println("HumanCanPlay = " + GameRules.CanHumanPlay());
-        System.out.println(
-            " HumanPutSymbol = " + GameRules.gameRules.HumanPutSymbol
-        );
-
-        String blank_gasp = "  ";
+        String blank_gasp = "    ";
         int size = grid.getSize();
 
         Selector sel = grid.getSelector();
@@ -133,9 +126,15 @@ public class Grid {
 
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩', 2);
         Console.print(blank_gasp + l_bottom);
-
+        /*/
+        System.out.print("DEBUG\n\n");
         System.out.print(grid.Field[sel.getY()][sel.getX()].getSymbol());
         System.out.print("\n x=" + sel.getX() + "\n y=" + sel.getY());
+        System.out.println("HumanCanPlay = " + GameRules.CanHumanPlay());
+        System.out.println(
+            " HumanPutSymbol = " + GameRules.gameRules.HumanPutSymbol
+        );
+   *
         //  System.out.println("Expected :");
         /*
         Console.print("╔═══╦═══╦═══╗");

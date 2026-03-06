@@ -36,11 +36,12 @@ public class Input {
 
         if (c == 'o' || c == 'O' || c == '2') {
             SymbolSelection.assignSymbol(Person.BOT, Person.HUMAN);
+            TicTacToe.status = Status.GAME;
         } else if (c == 'x' || c == 'X' || c == '1') {
             SymbolSelection.assignSymbol(Person.HUMAN, Person.BOT);
+            TicTacToe.status = Status.GAME;
         }
 
-        TicTacToe.status = Status.GAME;
         return true;
     }
 
