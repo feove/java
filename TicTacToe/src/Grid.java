@@ -97,6 +97,19 @@ public class Grid {
         return grid.Field[y][x].getSymbol() == Symbol.VOID;
     }
 
+    private static String buildArrows(int i) {
+        switch (i) {
+            case 1:
+                return "     ↑         ";
+            case 2:
+                return "    ← → to move";
+            case 3:
+                return "     ↓         ";
+            default:
+                return "";
+        }
+    }
+
     public static void showGrid(Grid grid) {
         // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
 
@@ -109,7 +122,7 @@ public class Grid {
         String l_top = buildCustomLine(grid, '╔', '╗', '═', '╦', 0);
         Console.print(blank_gasp + l_top);
 
-        //String
+        int arrow_line = 0;
 
         for (int i = 0; i < size; i++) {
             String line = buildCustomLine(grid, '║', '║', ' ', '║', i);
@@ -118,11 +131,17 @@ public class Grid {
                 line = Selector.addSelector(grid, line);
             }
 
-            Console.print(blank_gasp + line);
+            String arrows = buildArrows(i);
+
+            if (arrows != "") arrow_line++;
+
+            Console.print(blank_gasp + line + arrows);
             if (i + 1 == size) break;
 
+            if (i < arrow_line) arrows = buildArrows(i + 1);
+
             String border = buildCustomLine(grid, '╠', '╣', '═', '╬', i);
-            Console.print(blank_gasp + border);
+            Console.print(blank_gasp + border + arrows);
         }
 
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩', 2);
