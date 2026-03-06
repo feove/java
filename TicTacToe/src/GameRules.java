@@ -1,3 +1,6 @@
+//import com.sun.tools.classfile.StackMapTable_attribute.stack_map_frame;
+import java.util.AbstractMap;
+
 public class GameRules {
 
     public static GameRules gameRules;
@@ -12,12 +15,14 @@ public class GameRules {
 
     public static boolean HumanPutSymbol = false;
 
+    public static AbstractMap.SimpleEntry<Integer, Integer> save_symbol;
+
     public GameRules(Person _cross, Person _circle) {
         this.winner = Person.NONE;
         this.cross = _cross;
         this.circle = _circle;
         this.tie = true;
-        GameRules.currentTurn = Person.HUMAN; // Should be random
+        GameRules.currentTurn = getRandomPerson(); // Should be random
     }
 
     public static boolean CanHumanPlay() {
@@ -57,6 +62,12 @@ public class GameRules {
             setTurn(Person.HUMAN);
             GameRules.HumanPutSymbol = false;
         }
+    }
+
+    private static Person getRandomPerson() {
+        int randomPerson = (int) (Math.random() * 2);
+
+        return (randomPerson == 1) ? Person.BOT : Person.HUMAN;
     }
 
     public static Symbol whatSelected(Person p) {
