@@ -1,7 +1,7 @@
 public class Scene {
 
     public static void drawGame(Grid grid, boolean GameOver) {
-        Message.title();
+        if (GameOver == false) Message.title();
         Grid.showGrid(grid);
 
         if (GameOver) return;
@@ -20,14 +20,17 @@ public class Scene {
             case LOSE:
                 Message.Lose();
                 drawGame(grid, true);
+                TicTacToe.isOver = true;
                 break;
             case TIE:
                 Message.Tie();
                 drawGame(grid, true);
+                TicTacToe.isOver = true;
                 break;
             case WIN:
                 Message.Win();
                 drawGame(grid, true);
+                TicTacToe.isOver = true;
                 break;
             case INTRO:
                 Message.intro();

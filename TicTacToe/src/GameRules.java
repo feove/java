@@ -99,12 +99,11 @@ public class GameRules {
         int size = grid.getSize();
 
         for (int i = 0; i < size; i++) {
-            if (grid.Field[i][col].getSymbol() != s) {
-                return false;
-            }
-
-            if (grid.Field[i][col].getSymbol() == Symbol.VOID) {
+            if (grid.Field[col][i].getSymbol() == Symbol.VOID) {
                 gameRules.tie = false;
+            }
+            if (grid.Field[col][i].getSymbol() != s) {
+                return false;
             }
         }
 
@@ -132,13 +131,15 @@ public class GameRules {
     }
 
     private boolean columChecker(Grid grid) {
-        if (is_void_at(grid, 1, 0) == false) {
-            if (checkColum(grid, Symbol.CIRCLE, 1)) {
+        int size = grid.getSize();
+
+        for (int i = 0; i < size; i++) {
+            if (checkColum(grid, Symbol.CIRCLE, i)) {
                 this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
-            if (checkColum(grid, Symbol.CROSS, 1)) {
+            if (checkColum(grid, Symbol.CROSS, i)) {
                 this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
@@ -150,12 +151,12 @@ public class GameRules {
         int size = grid.getSize();
 
         for (int j = 0; j < size; j++) {
-            if (grid.Field[j][line].getSymbol() != s) {
-                return false;
-            }
-
             if (grid.Field[j][line].getSymbol() == Symbol.VOID) {
                 gameRules.tie = false;
+            }
+
+            if (grid.Field[j][line].getSymbol() != s) {
+                return false;
             }
         }
 
@@ -210,7 +211,7 @@ public class GameRules {
     //Set Winner also
     public boolean isOver(Grid grid) {
         //Assume it can change
-        this.tie = false; //true
+        gameRules.tie = true; //true
 
         if (columChecker(grid)) return true;
 
@@ -220,6 +221,6 @@ public class GameRules {
 
         // System.out.println("this.tie=" + this.tie);
 
-        return this.tie;
+        return gameRules.tie;
     }
 }

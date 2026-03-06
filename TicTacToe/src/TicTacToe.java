@@ -8,11 +8,11 @@ public class TicTacToe {
 
     public static Status status = Status.INTRO;
 
+    public static boolean isOver = false;
+
     public static void main(String arg[]) {
         //   Message.intro();
         Grid grid = new Grid(3, 3, 3);
-
-        GameRules gameRules;
 
         try (
             Terminal terminal = new DefaultTerminalFactory().createTerminal()

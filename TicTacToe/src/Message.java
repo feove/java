@@ -4,7 +4,7 @@ public class Message extends TicTacToe {
 
     public static void intro() {
         Console.hideCursor();
-        System.out.println("\n -==- Welcome to Tic Tac Toe! -==- \n");
+        System.out.println("\n   -==- Welcome to Tic Tac Toe! -==- \n");
 
         if (HasSlept == false) {
             Console.sleep(1);
@@ -14,7 +14,7 @@ public class Message extends TicTacToe {
     }
 
     public static void title() {
-        System.out.println("\n  -==- Tic Tac Toe -==- \n");
+        System.out.println("\n   -==- Tic Tac Toe -==- \n");
     }
 
     public static void ShowTurn(Person p) {
@@ -147,16 +147,16 @@ public class Message extends TicTacToe {
 
     public static void Win() {
         Console.clear();
-        System.out.println("\n  -==- You Win! -==-\n");
+        System.out.println("\n   -==- You Win! -==-\n");
     }
 
     public static void Lose() {
         Console.clear();
-        System.out.println("\n -==- You Lose! -==-\n");
+        System.out.println("\n   -==- You Lose! -==-\n");
     }
 
     public static void Tie() {
         Console.clear();
-        System.out.println("\n -==- It's a Tie! -==-\n");
+        System.out.println("\n   -==- It's a Tie! -==-\n");
     }
 }

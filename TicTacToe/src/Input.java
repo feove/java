@@ -120,6 +120,7 @@ public class Input {
                 System.exit(0);
                 return;
             case Character:
+                if (TicTacToe.isOver) return;
                 char c = keyStroke.getCharacter();
 
                 characterInput(c, grid);
