@@ -10,7 +10,6 @@ public class GameRules {
 
     public static Person currentTurn;
 
-    public static boolean HumanCanPlay = true;
     public static boolean HumanPutSymbol = false;
 
     public GameRules(Person _cross, Person _circle) {
@@ -18,13 +17,24 @@ public class GameRules {
         this.cross = _cross;
         this.circle = _circle;
         this.tie = true;
+        GameRules.currentTurn = Person.HUMAN; // Should be random
+    }
+
+    public static boolean CanHumanPlay() {
+        return GameRules.currentTurn == Person.HUMAN;
+    }
+
+    public static boolean CanBotPlay() {
+        return GameRules.currentTurn == Person.BOT;
+    }
+
+    public static void setTurn(Person p) {
+        GameRules.currentTurn = p;
     }
 
     public static void gameManager(Grid grid) {
-        if (gameRules.HumanCanPlay == false) {
-            Bot.play(grid);
-            HumanCanPlay = true;
-        }
+        System.out.println("HumanCanPlay = " + CanHumanPlay());
+        System.out.println(" HumanPutSymbol = " + gameRules.HumanPutSymbol);
 
         if (gameRules.isOver(grid)) {
             if (gameRules.tie) {
@@ -38,6 +48,12 @@ public class GameRules {
             }
 
             TicTacToe.status = Status.LOSE;
+        }
+
+        if (CanBotPlay()) {
+            Bot.play(grid);
+            setTurn(Person.HUMAN);
+            GameRules.HumanPutSymbol = false;
         }
     }
 

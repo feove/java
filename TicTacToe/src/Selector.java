@@ -37,7 +37,7 @@ public class Selector {
         }
     }
 
-    public void BottomShift(Grid grid) {
+    public void BottomShift() {
         if (this.y + 1 < this.limit) {
             this.y++;
         }

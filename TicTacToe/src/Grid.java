@@ -90,7 +90,11 @@ public class Grid {
     }
 
     public static void setSymbol(Grid grid, Symbol s, int x, int y) {
-        grid.Field[x][y] = new Cell(s);
+        grid.Field[y][x] = new Cell(s);
+    }
+
+    public static boolean canPlaceAt(Grid grid, int x, int y) {
+        return grid.Field[y][x].getSymbol() == Symbol.VOID;
     }
 
     public static void showGrid(Grid grid) {
@@ -123,6 +127,8 @@ public class Grid {
         String l_bottom = buildCustomLine(grid, '╚', '╝', '═', '╩', 2);
         Console.print(blank_gasp + l_bottom);
 
+        System.out.print(grid.Field[sel.getY()][sel.getX()].getSymbol());
+        System.out.print("\n x=" + sel.getX() + "\n y=" + sel.getY());
         //  System.out.println("Expected :");
         /*
         Console.print("╔═══╦═══╦═══╗");

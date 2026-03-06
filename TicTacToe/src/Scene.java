@@ -8,10 +8,13 @@ public class Scene {
                 Grid.showGrid(grid);
                 break;
             case LOSE:
+                Message.Lose();
                 break;
             case TIE:
+                Message.Tie();
                 break;
             case WIN:
+                Message.Win();
                 break;
             case SYMBOL_SELECTION:
                 SymbolSelection.drawSymbolSelection();

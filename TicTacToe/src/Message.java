@@ -8,4 +8,19 @@ public class Message extends TicTacToe {
 
         TicTacToe.status = Status.SYMBOL_SELECTION;
     }
+
+    public static void Win() {
+        Console.clear();
+        System.out.println("\n -==- You Win! -==-\n");
+    }
+
+    public static void Lose() {
+        Console.clear();
+        System.out.println("\n -==- You Lose! -==-\n");
+    }
+
+    public static void Tie() {
+        Console.clear();
+        System.out.println("\n -==- It's a Tie! -==-\n");
+    }
 }

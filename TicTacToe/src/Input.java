@@ -10,18 +10,18 @@ public class Input {
     private static boolean GameCase(Grid grid, char c, int x, int y) {
         if (
             TicTacToe.status != Status.GAME ||
-            GameRules.HumanCanPlay == false ||
-            GameRules.HumanPutSymbol
+            GameRules.HumanPutSymbol ||
+            Grid.canPlaceAt(grid, x, y) == false
         ) return false;
 
         if (c == 'o' || c == 'O') {
             if (GameRules.gameRules.circle == Person.HUMAN) {
-                Grid.setSymbol(grid, Symbol.CIRCLE, y, x);
+                Grid.setSymbol(grid, Symbol.CIRCLE, x, y);
                 GameRules.HumanPutSymbol = true;
             }
         } else if (c == 'x' || c == 'X') {
             if (GameRules.gameRules.cross == Person.HUMAN) {
-                Grid.setSymbol(grid, Symbol.CROSS, y, x);
+                Grid.setSymbol(grid, Symbol.CROSS, x, y);
                 GameRules.HumanPutSymbol = true;
             }
         }
@@ -44,13 +44,25 @@ public class Input {
 
     private static boolean Validatation(char c) {
         if (
-            TicTacToe.status != Status.GAME || GameRules.HumanCanPlay == false
+            TicTacToe.status != Status.GAME ||
+            GameRules.CanHumanPlay() == false ||
+            GameRules.HumanPutSymbol == false
         ) return false;
 
         if (c == 'v') {
-            GameRules.HumanCanPlay = false;
+            GameRules.setTurn(Person.BOT);
             return true;
         }
+
+        return false;
+    }
+
+    private static boolean Deletion(char c, Grid grid) {
+        if (
+            TicTacToe.status != Status.GAME ||
+            GameRules.CanHumanPlay() == false ||
+            GameRules.HumanPutSymbol == false
+        ) return false;
 
         return false;
     }
@@ -59,9 +71,9 @@ public class Input {
         int x = grid.getSelector().getX();
         int y = grid.getSelector().getY();
 
-        if (GameCase(grid, c, x, y)) return;
-
         if (SymbolSelectionCase(c)) return;
+
+        if (GameCase(grid, c, x, y)) return;
 
         if (Validatation(c)) return;
     }
@@ -74,11 +86,12 @@ public class Input {
         // Add throws declaration
 
         switch (keyStroke.getKeyType()) {
+            case Delete:
             case ArrowUp:
                 grid.getSelector().TopShift();
                 break;
             case ArrowDown:
-                grid.getSelector().BottomShift(grid);
+                grid.getSelector().BottomShift();
                 break;
             case ArrowLeft:
                 grid.getSelector().leftShift();
