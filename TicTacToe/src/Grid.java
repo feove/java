@@ -100,7 +100,8 @@ public class Grid {
     public static void showGrid(Grid grid) {
         // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
 
-        String blank_gasp = "    ";
+        String blank_gasp = "      ";
+
         int size = grid.getSize();
 
         Selector sel = grid.getSelector();
