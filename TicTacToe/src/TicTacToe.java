@@ -9,7 +9,7 @@ public class TicTacToe {
     public static Status status = Status.INTRO;
 
     public static void main(String arg[]) {
-        Message.intro();
+        //   Message.intro();
         Grid grid = new Grid(3, 3, 3);
 
         GameRules gameRules;

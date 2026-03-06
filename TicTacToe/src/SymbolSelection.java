@@ -8,7 +8,7 @@ public class SymbolSelection {
         Console.print("\n > Select your symbol:\n");
 
         Console.print("    ╔═══╗     ╔═══╗ ");
-        Console.print("    ║ O ║     ║ X ║ ");
+        Console.print("    ║ X ║     ║ O ║ ");
         Console.print("    ╚═══╝     ╚═══╝ ");
         Console.print("     [1]       [2]\n");
 

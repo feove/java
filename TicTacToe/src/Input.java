@@ -30,11 +30,13 @@ public class Input {
     }
 
     private static boolean SymbolSelectionCase(char c) {
-        if (TicTacToe.status != Status.SYMBOL_SELECTION) return false;
+        if (TicTacToe.status == Status.GAME) {
+            return false;
+        }
 
-        if (c == 'o' || c == 'O' || c == '1') {
+        if (c == 'o' || c == 'O' || c == '2') {
             SymbolSelection.assignSymbol(Person.BOT, Person.HUMAN);
-        } else if (c == 'x' || c == 'X' || c == '2') {
+        } else if (c == 'x' || c == 'X' || c == '1') {
             SymbolSelection.assignSymbol(Person.HUMAN, Person.BOT);
         }
 
@@ -57,12 +59,17 @@ public class Input {
         return false;
     }
 
-    private static boolean Deletion(char c, Grid grid) {
+    private static boolean Deletion(Grid grid) {
         if (
             TicTacToe.status != Status.GAME ||
             GameRules.CanHumanPlay() == false ||
             GameRules.HumanPutSymbol == false
         ) return false;
+
+        Selector s = grid.getSelector();
+
+        grid.Field[s.getY()][s.getX()] = new Cell(Symbol.VOID);
+        GameRules.HumanPutSymbol = false;
 
         return false;
     }
@@ -86,7 +93,9 @@ public class Input {
         // Add throws declaration
 
         switch (keyStroke.getKeyType()) {
-            case Delete:
+            case Backspace:
+                Deletion(grid);
+                break;
             case ArrowUp:
                 grid.getSelector().TopShift();
                 break;

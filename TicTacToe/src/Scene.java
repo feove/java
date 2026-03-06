@@ -6,6 +6,7 @@ public class Scene {
             case GAME:
                 GameRules.gameManager(grid);
                 Grid.showGrid(grid);
+                Message.ShowTurn(GameRules.currentTurn);
                 break;
             case LOSE:
                 Message.Lose();
@@ -16,7 +17,8 @@ public class Scene {
             case WIN:
                 Message.Win();
                 break;
-            case SYMBOL_SELECTION:
+            case INTRO:
+                Message.intro();
                 SymbolSelection.drawSymbolSelection();
                 break;
             default:

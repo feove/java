@@ -1,12 +1,34 @@
 public class Message extends TicTacToe {
 
-    public static void intro() {
-        Console.clear();
-        System.out.println("\n -==- Welcome to Tic Tac Toe! -==-\n");
-        Console.sleep(2);
-        Console.clear();
+    public static boolean HasSlept = false;
 
-        TicTacToe.status = Status.SYMBOL_SELECTION;
+    public static void intro() {
+        Console.hideCursor();
+        System.out.println("\n -==- Welcome to Tic Tac Toe! -==- \n");
+
+        if (HasSlept == false) {
+            Console.sleep(1);
+            HasSlept = true;
+        }
+        // Console.clear();
+    }
+
+    public static void ShowTurn(Person p) {
+        if (p == Person.HUMAN) {
+            HumanTurn();
+            return;
+        }
+        BotTurn();
+    }
+
+    public static void HumanTurn() {
+        System.out.println("\n -==- Your Turn! -==-\n");
+    }
+
+    private static void BotTurn() {
+        System.out.println("\n -==- Bot Turn! -==-\n");
+
+        //Animation
     }
 
     public static void Win() {

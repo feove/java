@@ -24,7 +24,7 @@ public class Grid {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                Field[i][j] = new Cell(3); // Void
+                Field[j][i] = new Cell(3); // Void
             }
         }
     }
@@ -97,8 +97,15 @@ public class Grid {
         return grid.Field[y][x].getSymbol() == Symbol.VOID;
     }
 
+    // public static deletion()
+
     public static void showGrid(Grid grid) {
         // Unicodes used : ╩ ╦ ╠ ╣ ║ ═ ╚ ╝ ╗ ╔ ╬
+
+        System.out.println("HumanCanPlay = " + GameRules.CanHumanPlay());
+        System.out.println(
+            " HumanPutSymbol = " + GameRules.gameRules.HumanPutSymbol
+        );
 
         String blank_gasp = "  ";
         int size = grid.getSize();

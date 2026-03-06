@@ -33,9 +33,6 @@ public class GameRules {
     }
 
     public static void gameManager(Grid grid) {
-        System.out.println("HumanCanPlay = " + CanHumanPlay());
-        System.out.println(" HumanPutSymbol = " + gameRules.HumanPutSymbol);
-
         if (gameRules.isOver(grid)) {
             if (gameRules.tie) {
                 TicTacToe.status = Status.TIE;
@@ -51,6 +48,11 @@ public class GameRules {
         }
 
         if (CanBotPlay()) {
+            Grid.showGrid(grid);
+            Message.ShowTurn(GameRules.currentTurn);
+
+            Console.sleep(3);
+            Console.clear();
             Bot.play(grid);
             setTurn(Person.HUMAN);
             GameRules.HumanPutSymbol = false;
@@ -105,7 +107,7 @@ public class GameRules {
                 return false;
             }
 
-            if (grid.Field[line][j].getSymbol() == Symbol.VOID) {
+            if (grid.Field[j][line].getSymbol() == Symbol.VOID) {
                 gameRules.tie = false;
             }
         }
@@ -130,18 +132,18 @@ public class GameRules {
     }
 
     private boolean is_void_at(Grid grid, int x, int y) {
-        return grid.Field[x][y].getSymbol() == Symbol.VOID;
+        return grid.Field[y][x].getSymbol() == Symbol.VOID;
     }
 
     private boolean columChecker(Grid grid) {
         if (is_void_at(grid, 1, 0) == false) {
             if (checkColum(grid, Symbol.CIRCLE, 1)) {
-                this.winner = this.circle;
+                this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
             if (checkColum(grid, Symbol.CROSS, 1)) {
-                this.winner = this.cross;
+                this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
         }
@@ -151,12 +153,12 @@ public class GameRules {
     private boolean lineChecker(Grid grid) {
         if (is_void_at(grid, 0, 1) == false) {
             if (checkLine(grid, Symbol.CIRCLE, 1)) {
-                this.winner = this.circle;
+                this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
             if (checkLine(grid, Symbol.CROSS, 1)) {
-                this.winner = this.cross;
+                this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
         }
@@ -166,24 +168,24 @@ public class GameRules {
     private boolean diagonaleChecker(Grid grid) {
         if (is_void_at(grid, 0, 0) == false) {
             if (checkLeftDiagonal(grid, Symbol.CIRCLE)) {
-                this.winner = this.circle;
+                this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
             if (checkLeftDiagonal(grid, Symbol.CROSS)) {
-                this.winner = this.cross;
+                this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
         }
 
         if (is_void_at(grid, 0, 2) == false) {
             if (checkRightDiagonal(grid, Symbol.CIRCLE)) {
-                this.winner = this.circle;
+                this.winner = whoSelected(Symbol.CIRCLE);
                 return true;
             }
 
             if (checkRightDiagonal(grid, Symbol.CROSS)) {
-                this.winner = this.cross;
+                this.winner = whoSelected(Symbol.CROSS);
                 return true;
             }
         }
