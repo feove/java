@@ -11,5 +11,7 @@ public class SymbolSelection {
         Console.print("    ║ X ║     ║ O ║ ");
         Console.print("    ╚═══╝     ╚═══╝ ");
         Console.print("     [1]       [2]\n");
+
+        Message.drawEscape("\n", ' ');
     }
 }

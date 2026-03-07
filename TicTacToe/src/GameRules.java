@@ -5,8 +5,8 @@ public class GameRules {
 
     public static GameRules gameRules;
 
-    private Person winner;
-    private boolean tie;
+    public Person winner;
+    public boolean tie;
 
     public final Person cross;
     public final Person circle;
@@ -23,7 +23,7 @@ public class GameRules {
         this.cross = _cross;
         this.circle = _circle;
         this.tie = true;
-        GameRules.currentTurn = getRandomPerson(); // Should be random
+        GameRules.currentTurn = getRandomPerson();
     }
 
     public static boolean CanHumanPlay() {
@@ -95,14 +95,20 @@ public class GameRules {
         return this.winner = _winner;
     }
 
-    private static boolean checkColum(Grid grid, Symbol s, int col) {
+    private boolean is_void_at(Grid grid, int x, int y) {
+        return grid.Field[y][x].getSymbol() == Symbol.VOID;
+    }
+
+    private static boolean checkLine(Grid grid, Symbol s, int y) {
         int size = grid.getSize();
 
-        for (int i = 0; i < size; i++) {
-            if (grid.Field[col][i].getSymbol() == Symbol.VOID) {
-                gameRules.tie = false;
+        for (int x = 0; x < size; x++) {
+            if (grid.Field[y][x].getSymbol() == Symbol.VOID) {
+                GameRules.gameRules.tie = false;
+                return false;
             }
-            if (grid.Field[col][i].getSymbol() != s) {
+
+            if (grid.Field[y][x].getSymbol() != s) {
                 return false;
             }
         }
@@ -110,12 +116,55 @@ public class GameRules {
         return true;
     }
 
-    private boolean checkLeftDiagonal(Grid grid, Symbol s) {
-        boolean res = grid.Field[0][0].getSymbol() == s;
-        res = res && grid.Field[1][1].getSymbol() == s;
-        res = res && grid.Field[2][2].getSymbol() == s;
+    private boolean lineChecker(Grid grid) {
+        int size = grid.getSize();
+        for (int i = 0; i < size; i++) {
+            if (checkLine(grid, Symbol.CIRCLE, i)) {
+                GameRules.gameRules.winner = whoSelected(Symbol.CIRCLE);
+                return true;
+            }
 
-        return res;
+            if (checkLine(grid, Symbol.CROSS, i)) {
+                GameRules.gameRules.winner = whoSelected(Symbol.CROSS);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean checkColumn(Grid grid, Symbol s, int x) {
+        int size = grid.getSize();
+
+        for (int y = 0; y < size; y++) {
+            if (grid.Field[y][x].getSymbol() == Symbol.VOID) {
+                GameRules.gameRules.tie = false;
+                return false;
+            }
+
+            if (grid.Field[y][x].getSymbol() != s) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean columnChecker(Grid grid) {
+        int size = grid.getSize();
+
+        for (int x = 0; x < size; x++) {
+            if (checkColumn(grid, Symbol.CIRCLE, x)) {
+                GameRules.gameRules.winner = whoSelected(Symbol.CIRCLE);
+                return true;
+            }
+
+            if (checkColumn(grid, Symbol.CROSS, x)) {
+                GameRules.gameRules.winner = whoSelected(Symbol.CROSS);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkRightDiagonal(Grid grid, Symbol s) {
@@ -126,61 +175,15 @@ public class GameRules {
         return res;
     }
 
-    private boolean is_void_at(Grid grid, int x, int y) {
-        return grid.Field[y][x].getSymbol() == Symbol.VOID;
+    private boolean checkLeftDiagonal(Grid grid, Symbol s) {
+        boolean res = grid.Field[0][0].getSymbol() == s;
+        res = res && grid.Field[1][1].getSymbol() == s;
+        res = res && grid.Field[2][2].getSymbol() == s;
+
+        return res;
     }
 
-    private boolean columChecker(Grid grid) {
-        int size = grid.getSize();
-
-        for (int i = 0; i < size; i++) {
-            if (checkColum(grid, Symbol.CIRCLE, i)) {
-                this.winner = whoSelected(Symbol.CIRCLE);
-                return true;
-            }
-
-            if (checkColum(grid, Symbol.CROSS, i)) {
-                this.winner = whoSelected(Symbol.CROSS);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean checkLine(Grid grid, Symbol s, int line) {
-        int size = grid.getSize();
-
-        for (int j = 0; j < size; j++) {
-            if (grid.Field[j][line].getSymbol() == Symbol.VOID) {
-                gameRules.tie = false;
-            }
-
-            if (grid.Field[j][line].getSymbol() != s) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private boolean lineChecker(Grid grid) {
-        int size = grid.getSize();
-        for (int i = 0; i > size; i++) {
-            if (checkLine(grid, Symbol.CIRCLE, i)) {
-                this.winner = whoSelected(Symbol.CIRCLE);
-                return true;
-            }
-
-            if (checkLine(grid, Symbol.CROSS, i)) {
-                this.winner = whoSelected(Symbol.CROSS);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean diagonaleChecker(Grid grid) {
+    private boolean diagonalChecker(Grid grid) {
         if (is_void_at(grid, 0, 0) == false) {
             if (checkLeftDiagonal(grid, Symbol.CIRCLE)) {
                 this.winner = whoSelected(Symbol.CIRCLE);
@@ -213,11 +216,11 @@ public class GameRules {
         //Assume it can change
         gameRules.tie = true; //true
 
-        if (columChecker(grid)) return true;
+        if (columnChecker(grid)) return true;
 
         if (lineChecker(grid)) return true;
 
-        if (diagonaleChecker(grid)) return true;
+        if (diagonalChecker(grid)) return true;
 
         // System.out.println("this.tie=" + this.tie);
 
