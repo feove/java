@@ -46,11 +46,11 @@ public class GameRules {
             }
 
             if (gameRules.winner == Person.BOT) {
-                TicTacToe.status = Status.WIN;
+                TicTacToe.status = Status.LOSE;
                 return;
             }
 
-            TicTacToe.status = Status.LOSE;
+            TicTacToe.status = Status.WIN;
         }
 
         if (CanBotPlay()) {

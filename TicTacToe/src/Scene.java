@@ -20,16 +20,19 @@ public class Scene {
             case LOSE:
                 Message.Lose();
                 drawGame(grid, true);
+                Message.drawEscape("\n  ", ' ');
                 TicTacToe.isOver = true;
                 break;
             case TIE:
                 Message.Tie();
                 drawGame(grid, true);
+                Message.drawEscape("\n  ", ' ');
                 TicTacToe.isOver = true;
                 break;
             case WIN:
                 Message.Win();
                 drawGame(grid, true);
+                Message.drawEscape("\n  ", ' ');
                 TicTacToe.isOver = true;
                 break;
             case INTRO:

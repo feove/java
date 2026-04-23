@@ -101,6 +101,7 @@ public class Input {
 
         switch (keyStroke.getKeyType()) {
             case Backspace:
+                if (TicTacToe.isOver) return;
                 Deletion(grid);
                 break;
             case ArrowUp:

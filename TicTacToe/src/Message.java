@@ -147,16 +147,16 @@ public class Message extends TicTacToe {
 
     public static void Win() {
         Console.clear();
-        System.out.println("\n   -==- You Win! -==-\n");
+        System.out.println("\n    -==- You Won! -==-\n");
     }
 
     public static void Lose() {
         Console.clear();
-        System.out.println("\n   -==- You Lose! -==-\n");
+        System.out.println("\n    -==- You Lose! -==-\n");
     }
 
     public static void Tie() {
         Console.clear();
-        System.out.println("\n   -==- It's a Tie! -==-\n");
+        System.out.println("\n    -==- It's a Tie! -==-\n");
     }
 }
